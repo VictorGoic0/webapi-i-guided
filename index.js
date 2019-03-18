@@ -27,6 +27,17 @@ server.get('/hubs', (req, res) => {
   })
 })
 
+server.get('/hubs/:id', (req, res) => {
+  const { id } = req.params;
+  db.hubs.findById(id)
+  .then(hub => {
+    res.status(200).json(hub)
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Error retrieving hub'})
+  })
+})
+
 server.post('/hubs', (req, res) => {
   // read the data for the hub
   const hubInfo = req.body;
